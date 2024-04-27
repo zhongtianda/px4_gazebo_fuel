@@ -1,0 +1,48 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "${default}",
+        "limitSymbolsToIncludedHeaders": false
+      },
+      "includePath": [
+        "/home/ztd/project/fuel_ws/devel/include/**",
+        "/home/ztd/catkin_ws/devel/include/**",
+        "/opt/ros/noetic/include/**",
+        "/home/ztd/project/fuel_ws/src/FUEL/fuel_planner/active_perception/include/**",
+        "/home/ztd/project/fuel_ws/src/FUEL/fuel_planner/bspline/include/**",
+        "/home/ztd/project/fuel_ws/src/FUEL/fuel_planner/bspline_opt/include/**",
+        "/home/ztd/catkin_ws/src/VINS-Fusion/camera_models/include/**",
+        "/home/ztd/project/fuel_ws/src/FUEL/fuel_planner/exploration_manager/include/**",
+        "/home/ztd/catkin_ws/src/gazebo_ros_pkgs/gazebo_plugins/include/**",
+        "/home/ztd/catkin_ws/src/gazebo_ros_pkgs/gazebo_ros/include/**",
+        "/home/ztd/catkin_ws/src/gazebo_ros_pkgs/gazebo_ros_control/include/**",
+        "/home/ztd/project/fuel_ws/src/FUEL/fuel_planner/utils/lkh_tsp_solver/include/**",
+        "/home/ztd/project/fuel_ws/src/FUEL/uav_simulator/local_sensing/include/**",
+        "/home/ztd/project/fuel_ws/src/FUEL/uav_simulator/Utils/multi_map_server/include/**",
+        "/home/ztd/project/fuel_ws/src/FUEL/fuel_planner/path_searching/include/**",
+        "/home/ztd/project/fuel_ws/src/FUEL/fuel_planner/plan_env/include/**",
+        "/home/ztd/project/fuel_ws/src/FUEL/fuel_planner/plan_manage/include/**",
+        "/home/ztd/project/fuel_ws/src/FUEL/fuel_planner/poly_traj/include/**",
+        "/home/ztd/project/fuel_ws/src/FUEL/uav_simulator/Utils/pose_utils/include/**",
+        "/home/ztd/catkin_ws/src/pub_point/include/**",
+        "/home/ztd/catkin_ws/src/caai/px4_position_controller/include/**",
+        "/home/ztd/project/fuel_ws/src/FUEL/uav_simulator/Utils/quadrotor_msgs/include/**",
+        "/home/ztd/catkin_ws/src/realsense/realsense2_camera/include/**",
+        "/home/ztd/project/fuel_ws/src/FUEL/uav_simulator/so3_control/include/**",
+        "/home/ztd/project/fuel_ws/src/FUEL/uav_simulator/so3_disturbance_generator/include/**",
+        "/home/ztd/project/fuel_ws/src/FUEL/uav_simulator/so3_quadrotor_simulator/include/**",
+        "/home/ztd/catkin_ws/src/stereo_cap/include/**",
+        "/home/ztd/project/fuel_ws/src/FUEL/fuel_planner/traj_utils/include/**",
+        "/home/ztd/project/fuel_ws/src/FUEL/uav_simulator/Utils/uav_utils/include/**",
+        "/usr/include/**"
+      ],
+      "name": "ROS",
+      "intelliSenseMode": "gcc-x64",
+      "compilerPath": "/usr/bin/gcc",
+      "cStandard": "gnu11",
+      "cppStandard": "c++14"
+    }
+  ],
+  "version": 4
+}
