@@ -11,7 +11,7 @@ find_package(Eigen3 REQUIRED)
 find_package(PCL 1.10 REQUIRED)
 
 # set(nlopt_DIR "/usr/local/lib/cmake/nlopt")
-find_package(NLopt REQUIRED)
+find_package(NLopt 2.7.1 REQUIRED)
 set(NLopt_INCLUDE_DIRS ${NLOPT_INCLUDE_DIR})
 
 find_package(catkin REQUIRED COMPONENTS

@@ -1,3 +1,8 @@
+/*****************************************************************************************
+ * 自定义控制器跟踪egoplanner轨迹
+ * 本代码采用的mavros的速度控制进行跟踪
+ * 编译成功后直接运行就行，遥控器先position模式起飞，然后rviz打点，再切offborad模式即可
+ ******************************************************************************************/
 #include <ros/ros.h>
 #include <visualization_msgs/Marker.h>
 #include <geometry_msgs/PoseStamped.h>
@@ -24,6 +29,8 @@ int rc_value, flag = 0, flag1 = 0;
 nav_msgs::Odometry position_msg;
 geometry_msgs::PoseStamped target_pos;
 mavros_msgs::State current_state;
+float position_x_begin, position_y_begin, position_z_begin, yaw_begin;
+bool get_first_pos = false;
 float position_x, position_y, position_z,  current_yaw, targetpos_x, targetpos_y;
 float ego_pos_x, ego_pos_y, ego_pos_z, ego_vel_x, ego_vel_y, ego_vel_z, ego_a_x, ego_a_y, ego_a_z, ego_yaw, ego_yaw_rate; //EGO planner information has position velocity acceleration yaw yaw_dot
 bool receive = false;//触发轨迹的条件判断
@@ -43,14 +50,25 @@ void state_cb(const mavros_msgs::State::ConstPtr& msg){
 void position_cb(const nav_msgs::Odometry::ConstPtr&msg)
 {
     position_msg=*msg;
-    position_x = position_msg.pose.pose.position.x;
-    position_y = position_msg.pose.pose.position.y;
-    position_z = position_msg.pose.pose.position.z;
 	tf2::Quaternion quat;
 	tf2::convert(msg->pose.pose.orientation, quat); //把mavros/local_position/pose里的四元数转给tf2::Quaternion quat
 	double roll, pitch, yaw;
 	tf2::Matrix3x3(quat).getRPY(roll, pitch, yaw);
+
+	if (!get_first_pos) {
+		position_x_begin = position_msg.pose.pose.position.x;
+		position_y_begin = position_msg.pose.pose.position.y;
+		position_z_begin = position_msg.pose.pose.position.z;
+		tf2::Quaternion quat;
+		tf2::convert(msg->pose.pose.orientation, quat); //把mavros/local_position/pose里的四元数转给tf2::Quaternion quat
+		yaw_begin = yaw;
+		get_first_pos = true;
+	}
+    position_x = position_msg.pose.pose.position.x - position_x_begin;
+    position_y = position_msg.pose.pose.position.y - position_y_begin;
+    position_z = position_msg.pose.pose.position.z - position_z_begin;
 	current_yaw = yaw;
+
 }
 
 void target_cb(const geometry_msgs::PoseStamped::ConstPtr& msg)//读取rviz的航点
@@ -75,7 +93,7 @@ void twist_cb(const quadrotor_msgs::PositionCommand::ConstPtr& msg)//ego的回�
 	ego_a_x = ego.acceleration.x;
 	ego_a_y = ego.acceleration.y;
 	ego_a_y = ego.acceleration.y;
-	ego_yaw = ego.yaw;
+	ego_yaw = ego.yaw + yaw_begin;
 	ego_yaw_rate = ego.yaw_dot;
 }
 
@@ -154,11 +172,14 @@ while(ros::ok()/*&&rc_value>900&&rc_value<1150*/)
             current_goal.coordinate_frame = mavros_msgs::PositionTarget::FRAME_LOCAL_NED;
 			current_goal.header.stamp = ros::Time::now();
 	        current_goal.type_mask = velocity_mask;
-			current_goal.velocity.x = 0;
-			current_goal.velocity.y = 0;
-			current_goal.velocity.z = (1 - position_z) * 1;
+			current_goal.velocity.x = (0 - position_x)*1;;
+			current_goal.velocity.y = (0 - position_y)*1;;
+			current_goal.velocity.z = (2 - position_z)*1;
 			current_goal.yaw = current_yaw;
 			ROS_INFO("请等待");
+			local_pos_pub.publish(current_goal);
+			ros::spinOnce();
+			rate.sleep();
 		}
 
      //if receive plan in rviz, the EGO plan information can input mavros and vehicle can auto navigation

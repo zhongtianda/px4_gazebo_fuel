@@ -6,10 +6,11 @@
 
   <arg name="init_x" value="0"/>
   <arg name="init_y" value="0"/>
-  <arg name="init_z" value="1.0"/> 
+  <arg name="init_z" value="1.6"/> 
 
   <!-- topic of your odometry such as VIO or LIO -->
-  <arg name="odom_topic" value="/iris_0/mavros/odometry/in" />
+  <!-- <arg name="odom_topic" value="/iris_0/mavros/odometry/in" /> -->
+  <arg name="odom_topic" value="/iris_0/mavros/local_position/odom" />
 
   <!-- main algorithm params -->
   <include file="$(find exploration_manager)/launch/algorithm.xml">
