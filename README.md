@@ -1,3 +1,4 @@
+控制器参考：https://gitee.com/Canada-a/cxr_ego_ctrl
 效果如下：
 
 ![效果](https://github.com/zhongtianda/px4_gazebo_fuel/blob/master/gif.gif)
